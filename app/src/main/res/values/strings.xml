@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Lesson Room</string>
+    <string name="panel">Панель</string>
+    <string name="catalog_products">Фильмы</string>
+    <string name="catalog_clothes">Длительность</string>
+    <string name="catalog_categories">Жанры</string>
+
+    <string name="add_categories">Добавить жанр фильма</string>
+    <string name="add_product">Добавить фильм</string>
+    <string name="edit_categories">Редактировать жанр</string>
+    <string name="edit_product">Редактировать фильм</string>
+
+    <string name="label_enter_category">Введите жанра фильма</string>
+    <string name="label_enter_name_product">Введите название фильма</string>
+    <string name="label_enter_price_product">Введите длительность фильма</string>
+
+    <string name="delete_all_product">Удалить все фильмы</string>
+    <string name="delete_all_category">Удалить все жанры</string>
+
+    <string name="fantastic">ФАНТАСТИКА</string>
+    <string name="horrors">УЖАСЫ</string>
+    <string name="action_movie">БОЕВИКИ</string>
+
+    <string name="catalogProducts">ФИЛЬМЫ</string>
+
+    <string name="catalogCategories">ЖАНРЫ</string>
+
+
+    <string name="addCategory">ДОБАВИТЬ ЖАНР</string>
+    <string name="addProduct">ДОБАВИТЬ ФИЛЬМ</string>
+
+    <string name="editCategory">РЕДАКТИРОВАНИЕ ЖАНР</string>
+    <string name="editMovie">РЕДАКТИРОВАНИЕ ФИЛЬМА</string>
+
+
+    <string name="labelEnterCategory">Введите название фильма</string>
+    <string name="labelEnterNameProduct">Введите название жанра</string>
+    <string name="labelEnterPriceProduct">Введите длительность фильма</string>
+
+    <string name="deleteAllCategories">УДАЛИТЬ ВСЕ ЖАНРЫ</string>
+    <string name="deleteAllProducts">УДАЛИТЬ ВСЕ ФИЛЬМЫ</string>
+
+</resources>
