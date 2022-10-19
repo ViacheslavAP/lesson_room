@@ -1,4 +1,4 @@
-package ru.perelyginva.lessonroom.models
+package ru.perelyginva.lessonroom.data.db.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

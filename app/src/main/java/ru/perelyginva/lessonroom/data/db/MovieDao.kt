@@ -1,8 +1,8 @@
-package ru.perelyginva.lessonroom.data
+package ru.perelyginva.lessonroom.data.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import ru.perelyginva.lessonroom.models.MovieModel
+import ru.perelyginva.lessonroom.data.db.models.MovieModel
 @Dao
 interface MovieDao {
 

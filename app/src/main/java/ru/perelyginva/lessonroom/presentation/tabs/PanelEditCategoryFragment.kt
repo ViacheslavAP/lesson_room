@@ -1,4 +1,4 @@
-package ru.perelyginva.lessonroom.tabs
+package ru.perelyginva.lessonroom.presentation.tabs
 
 import android.os.Bundle
 import android.view.KeyEvent
@@ -6,22 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.perelyginva.lessonroom.R
-import ru.perelyginva.lessonroom.data.DatabaseShop
 import ru.perelyginva.lessonroom.databinding.FragmentPanelEditCategoryBinding
-import ru.perelyginva.lessonroom.repositories.CategoryRepository
-import ru.perelyginva.lessonroom.viewModels.CategoryFactory
 import ru.perelyginva.lessonroom.viewModels.CategoryViewModel
 
 
 class PanelEditCategoryFragment : BottomSheetDialogFragment(), View.OnKeyListener {
 
     private var binding: FragmentPanelEditCategoryBinding? = null
-    private var categoryRepository: CategoryRepository? = null
-    private var categoryViewModel: CategoryViewModel? = null
-    private var categoryFactory: CategoryFactory? = null
+    private val categoryViewModel: CategoryViewModel by viewModel()
     private var idCategory: Int? = null
 
     override fun onCreateView(
@@ -33,12 +28,6 @@ class PanelEditCategoryFragment : BottomSheetDialogFragment(), View.OnKeyListene
         idCategory = arguments?.getString("idCategory")?.toInt()
         binding?.editCategory?.setText(arguments?.getString("nameCategory")).toString()
 
-        val categoryDao = DatabaseShop
-            .getInstance((context as FragmentActivity).application).categoryDao
-        categoryRepository = CategoryRepository(categoryDao)
-        categoryFactory = CategoryFactory(categoryRepository!!)
-        categoryViewModel = ViewModelProvider(this,
-            categoryFactory!!)[CategoryViewModel::class.java]
 
         binding?.editCategory?.setOnKeyListener(this)
 
@@ -51,7 +40,7 @@ class PanelEditCategoryFragment : BottomSheetDialogFragment(), View.OnKeyListene
             R.id.editCategory -> {
                 if (event?.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
 
-                    categoryViewModel?.startUpdateCategory(
+                    categoryViewModel.startUpdateCategory(
                         idCategory.toString().toInt(),
                         binding?.editCategory?.text?.toString()!!)
                     binding?.editCategory?.setText("")

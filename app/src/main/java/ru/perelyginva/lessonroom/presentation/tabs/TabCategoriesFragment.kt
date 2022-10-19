@@ -1,4 +1,4 @@
-package ru.perelyginva.lessonroom.tabs
+package ru.perelyginva.lessonroom.presentation.tabs
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,24 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import ru.perelyginva.lessonroom.data.DatabaseShop
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.perelyginva.lessonroom.databinding.FragmentTabCategoriesBinding
-import ru.perelyginva.lessonroom.models.CategoryModel
-import ru.perelyginva.lessonroom.repositories.CategoryRepository
-import ru.perelyginva.lessonroom.tabs.adapter.CategoryAdapter
-import ru.perelyginva.lessonroom.viewModels.CategoryFactory
+import ru.perelyginva.lessonroom.data.db.models.CategoryModel
+import ru.perelyginva.lessonroom.presentation.tabs.adapter.CategoryAdapter
 import ru.perelyginva.lessonroom.viewModels.CategoryViewModel
 
 
 class TabCategoriesFragment : Fragment() {
 
     private var binding: FragmentTabCategoriesBinding? = null
-    private var categoryRepository: CategoryRepository? = null
-    private var categoryViewModel: CategoryViewModel? = null
-    private var categoryFactory: CategoryFactory? = null
     private var categoryAdapter: CategoryAdapter? = null
+    private val categoryViewModel: CategoryViewModel by viewModel()
 
 
     override fun onCreateView(
@@ -33,16 +28,9 @@ class TabCategoriesFragment : Fragment() {
     ): View? {
         binding = FragmentTabCategoriesBinding.inflate(inflater, container, false)
 
-        val categoryDao = DatabaseShop
-            .getInstance((context as FragmentActivity).application).categoryDao
-
-        categoryRepository = CategoryRepository(categoryDao)
-        categoryFactory = CategoryFactory(categoryRepository!!)
-        categoryViewModel = ViewModelProvider(this,
-            categoryFactory!!)[CategoryViewModel::class.java]
 
         initRecyclerCategories()
-        displayCategories()
+
 
         binding?.deleteAllCategories?.setOnClickListener(View.OnClickListener {
             categoryViewModel?.deleteAllCategory()
@@ -66,7 +54,7 @@ class TabCategoriesFragment : Fragment() {
             { categoryModel: CategoryModel -> editCategory(categoryModel) }
         )
         binding?.recyclerCategories?.adapter = categoryAdapter
-
+        displayCategories()
     }
 
     private fun deleteCategory(categoryModel: CategoryModel) {

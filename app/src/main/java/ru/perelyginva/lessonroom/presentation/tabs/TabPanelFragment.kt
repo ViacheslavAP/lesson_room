@@ -1,4 +1,4 @@
-package ru.perelyginva.lessonroom.tabs
+package ru.perelyginva.lessonroom.presentation.tabs
 
 import android.os.Bundle
 import android.view.KeyEvent
@@ -6,51 +6,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModelProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.perelyginva.lessonroom.R
-import ru.perelyginva.lessonroom.data.DatabaseShop
 import ru.perelyginva.lessonroom.databinding.FragmentTabPanelBinding
-import ru.perelyginva.lessonroom.repositories.CategoryRepository
-import ru.perelyginva.lessonroom.repositories.MovieRepository
-import ru.perelyginva.lessonroom.viewModels.CategoryFactory
 import ru.perelyginva.lessonroom.viewModels.CategoryViewModel
-import ru.perelyginva.lessonroom.viewModels.MovieFactory
 import ru.perelyginva.lessonroom.viewModels.MovieViewModel
 
 
 class TabPanelFragment : Fragment(), View.OnClickListener, View.OnKeyListener {
 
     private var binding: FragmentTabPanelBinding? = null
-    private var categoryRepository: CategoryRepository? = null
-    private var categoryViewModel: CategoryViewModel? = null
-    private var categoryFactory: CategoryFactory? = null
+    private val categoryViewModel: CategoryViewModel by viewModel()
+    private val movieViewModel: MovieViewModel by viewModel()
 
-    private var movieRepository: MovieRepository? = null
-    private var movieViewModel: MovieViewModel? = null
-    private var movieFactory: MovieFactory? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        // Inflate the layout for this fragment
+
         binding = FragmentTabPanelBinding.inflate(inflater, container, false)
-
-        val categoryDao = DatabaseShop
-            .getInstance((context as FragmentActivity).application).categoryDao
-
-        categoryRepository = CategoryRepository(categoryDao)
-        categoryFactory = CategoryFactory(categoryRepository!!)
-        categoryViewModel = ViewModelProvider(this,
-            categoryFactory!!)[CategoryViewModel::class.java]
-
-        val productDao = DatabaseShop
-            .getInstance((context as FragmentActivity).application).movieDao
-        movieRepository = MovieRepository(productDao)
-        movieFactory = MovieFactory(movieRepository!!)
-        movieViewModel = ViewModelProvider(this,
-            movieFactory!!)[MovieViewModel::class.java]
 
         binding?.enterNameProduct?.setOnKeyListener(this)
         binding?.enterCategoryProduct?.setOnKeyListener(this)
@@ -69,23 +44,23 @@ class TabPanelFragment : Fragment(), View.OnClickListener, View.OnKeyListener {
         when (view?.id) {
 
             R.id.buttonAddCategoryClothes -> {
-                categoryViewModel?.startInsertCategory(
+                categoryViewModel.startInsertCategory(
                     binding?.buttonAddCategoryClothes?.text?.toString()!!)
             }
 
             R.id.buttonAddCategoryShoes -> {
-                categoryViewModel?.startInsertCategory(
+                categoryViewModel.startInsertCategory(
                     binding?.buttonAddCategoryShoes?.text?.toString()!!)
             }
 
             R.id.buttonAddCategoryAccessories -> {
-                categoryViewModel?.startInsertCategory(
+                categoryViewModel.startInsertCategory(
                     binding?.buttonAddCategoryAccessories?.text?.toString()!!)
             }
 
             R.id.buttonAddProduct -> {
 
-                movieViewModel?.startInsertProduct(
+                movieViewModel.startInsertProduct(
                     binding?.resEnterNameProduct?.text?.toString()!!,
                     binding?.resEnterCategoryProduct?.text?.toString()!!,
                     binding?.resEnterPriceProduct?.text?.toString()!!

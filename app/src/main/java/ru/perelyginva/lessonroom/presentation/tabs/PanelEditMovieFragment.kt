@@ -1,4 +1,4 @@
-package ru.perelyginva.lessonroom.tabs
+package ru.perelyginva.lessonroom.presentation.tabs
 
 import android.os.Bundle
 import android.view.KeyEvent
@@ -6,13 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.perelyginva.lessonroom.R
-import ru.perelyginva.lessonroom.data.DatabaseShop
 import ru.perelyginva.lessonroom.databinding.FragmentPanelEditProductBinding
-import ru.perelyginva.lessonroom.repositories.MovieRepository
-import ru.perelyginva.lessonroom.viewModels.MovieFactory
 import ru.perelyginva.lessonroom.viewModels.MovieViewModel
 
 
@@ -20,9 +17,7 @@ class PanelEditMovieFragment : BottomSheetDialogFragment(), View.OnKeyListener,
     View.OnClickListener {
 
     private var binding: FragmentPanelEditProductBinding? = null
-    private var movieRepository: MovieRepository? = null
-    private var movieViewModel: MovieViewModel? = null
-    private var movieFactory: MovieFactory? = null
+    private val movieViewModel: MovieViewModel by viewModel()
     private var idProduct: Int? = null
 
     override fun onCreateView(
@@ -36,12 +31,6 @@ class PanelEditMovieFragment : BottomSheetDialogFragment(), View.OnKeyListener,
         binding?.editCategoryProduct?.setText(arguments?.getString("categoryProduct").toString())
         binding?.editPriceProduct?.setText(arguments?.getString("priceProduct").toString())
 
-        val productDao = DatabaseShop
-            .getInstance((context as FragmentActivity).application).movieDao
-        movieRepository = MovieRepository(productDao)
-        movieFactory = MovieFactory(movieRepository!!)
-        movieViewModel = ViewModelProvider(this,
-            movieFactory!!)[MovieViewModel::class.java]
 
         binding?.editNameProduct?.setOnKeyListener(this)
         binding?.editCategoryProduct?.setOnKeyListener(this)
@@ -88,7 +77,7 @@ class PanelEditMovieFragment : BottomSheetDialogFragment(), View.OnKeyListener,
 
     override fun onClick(view: View?) {
 
-        movieViewModel?.startUpdateProduct(
+        movieViewModel.startUpdateProduct(
             idProduct.toString().toInt(),
             binding?.resEditNameProduct?.text?.toString()!!,
             binding?.resEditCategoryProduct?.text?.toString()!!,

@@ -1,11 +1,11 @@
-package ru.perelyginva.lessonroom.tabs.adapter
+package ru.perelyginva.lessonroom.presentation.tabs.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.perelyginva.lessonroom.databinding.ProductItemBinding
-import ru.perelyginva.lessonroom.models.MovieModel
+import ru.perelyginva.lessonroom.data.db.models.MovieModel
 
 class MovieAdapter(
     private val deleteProduct: (MovieModel) -> Unit,

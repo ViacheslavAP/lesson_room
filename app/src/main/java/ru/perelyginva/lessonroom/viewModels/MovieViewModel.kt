@@ -4,15 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.perelyginva.lessonroom.models.MovieModel
-import ru.perelyginva.lessonroom.repositories.MovieRepository
+import ru.perelyginva.lessonroom.data.db.models.MovieModel
+import ru.perelyginva.lessonroom.data.repositories.MovieRepository
+import ru.perelyginva.lessonroom.domain.useCase.MoviesUseCase
 
-class MovieViewModel(private val movieRepository: MovieRepository): ViewModel() {
+class MovieViewModel(private val moviesUseCase: MoviesUseCase): ViewModel() {
 
-    val products = movieRepository.products
+    val products = moviesUseCase.loadMovies()
 
     fun getFilter(nameCategory: String, priceProduct: String): LiveData<List<MovieModel>>{
-       return movieRepository.getFilter(nameCategory, priceProduct)
+       return moviesUseCase.getFilter(nameCategory, priceProduct)
     }
 
     fun startInsertProduct(nameProduct:String, categoryProduct: String, priceProduct: String){
@@ -29,18 +30,18 @@ class MovieViewModel(private val movieRepository: MovieRepository): ViewModel() 
     }
 
     fun insertProduct(movieModel: MovieModel) = viewModelScope.launch {
-        movieRepository.insertProduct(movieModel)
+        moviesUseCase.insertProduct(movieModel)
     }
 
     fun updateProduct(movieModel: MovieModel) = viewModelScope.launch {
-        movieRepository.updateProduct(movieModel)
+        moviesUseCase.updateProduct(movieModel)
     }
 
     fun deleteProduct(movieModel: MovieModel) = viewModelScope.launch {
-        movieRepository.deleteProduct(movieModel)
+        moviesUseCase.deleteProduct(movieModel)
     }
 
     fun deleteAllProduct() = viewModelScope.launch {
-        movieRepository.deleteAllProduct()
+        moviesUseCase.deleteAllProduct()
     }
 }

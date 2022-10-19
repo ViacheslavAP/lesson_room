@@ -3,12 +3,13 @@ package ru.perelyginva.lessonroom.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.perelyginva.lessonroom.models.CategoryModel
-import ru.perelyginva.lessonroom.repositories.CategoryRepository
+import ru.perelyginva.lessonroom.data.db.models.CategoryModel
+import ru.perelyginva.lessonroom.data.repositories.CategoryRepository
+import ru.perelyginva.lessonroom.domain.useCase.CategoriesUseCase
 
-class CategoryViewModel(private val categoryRepository: CategoryRepository) : ViewModel() {
+class CategoryViewModel(private val categoryUseCase: CategoriesUseCase) : ViewModel() {
 
-    val categories = categoryRepository.categories
+    val categories = categoryUseCase.loadCategories()
 
     fun startInsertCategory(nameCategory: String) {
         insertCategory(CategoryModel(0, nameCategory))
@@ -19,18 +20,18 @@ class CategoryViewModel(private val categoryRepository: CategoryRepository) : Vi
     }
 
     fun insertCategory(categoryModel: CategoryModel) = viewModelScope.launch {
-        categoryRepository.insertCategory(categoryModel)
+        categoryUseCase.insertCategory(categoryModel)
     }
 
     fun updateCategory(categoryModel: CategoryModel) = viewModelScope.launch {
-        categoryRepository.updateCategory(categoryModel)
+        categoryUseCase.updateCategory(categoryModel)
     }
 
     fun deleteCategory(categoryModel: CategoryModel) = viewModelScope.launch {
-        categoryRepository.deleteCategory(categoryModel)
+        categoryUseCase.deleteCategory(categoryModel)
     }
 
     fun deleteAllCategory() = viewModelScope.launch {
-        categoryRepository.deleteAllCategory()
+        categoryUseCase.deleteAllCategory()
     }
 }

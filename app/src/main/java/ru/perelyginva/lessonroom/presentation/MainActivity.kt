@@ -1,13 +1,14 @@
-package ru.perelyginva.lessonroom
+package ru.perelyginva.lessonroom.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import ru.perelyginva.lessonroom.R
 import ru.perelyginva.lessonroom.databinding.ActivityMainBinding
-import ru.perelyginva.lessonroom.tabs.TabCategoriesFragment
-import ru.perelyginva.lessonroom.tabs.TabFiltersFragment
-import ru.perelyginva.lessonroom.tabs.TabPanelFragment
-import ru.perelyginva.lessonroom.tabs.TabMoviesFragment
+import ru.perelyginva.lessonroom.presentation.tabs.TabCategoriesFragment
+import ru.perelyginva.lessonroom.presentation.tabs.TabFiltersFragment
+import ru.perelyginva.lessonroom.presentation.tabs.TabPanelFragment
+import ru.perelyginva.lessonroom.presentation.tabs.TabMoviesFragment
 
 class MainActivity : AppCompatActivity() {
 

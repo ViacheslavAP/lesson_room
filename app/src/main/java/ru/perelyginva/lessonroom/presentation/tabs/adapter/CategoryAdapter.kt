@@ -1,11 +1,11 @@
-package ru.perelyginva.lessonroom.tabs.adapter
+package ru.perelyginva.lessonroom.presentation.tabs.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.perelyginva.lessonroom.databinding.CategoryItemBinding
-import ru.perelyginva.lessonroom.models.CategoryModel
+import ru.perelyginva.lessonroom.data.db.models.CategoryModel
 
 class CategoryAdapter(private val deleteCategory: (CategoryModel) -> Unit,
                       private val editCategory: (CategoryModel) -> Unit):
